@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="text-center">Summary on 
+      <small class="text-muted">{{date}}</small>
+    </h1>
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-header bg-warning text-white">
+                <h5 class="card-title">New Confirmed</h5>
+              </div> 
+              
+              <div class="card-body text-right">
+                <p class="card-text">{{summary.NewConfirmed}}</p>
+              </div>
+              
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-header bg-info text-white">
+                <h5 class="card-title">Total Confirmed</h5>
+              </div>
+              
+              <div class="card-body text-right">
+                <p class="card-text">{{summary.TotalConfirmed}}</p>
+              </div>
+              
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-header bg-danger text-white">
+                <h5 class="card-title">New Deaths</h5>
+              </div>
+              <div class="card-body text-right">
+                <p class="card-text">{{summary.NewDeaths}}</p>
+              </div>
+              
+            </div>       
+          </div>
+          <div class="col-sm-3">
+            <div class="card">
+              <div class="card-header bg-secondary text-white">
+                <h5 class="card-title">Total Deaths</h5>
+              </div>
+              <div class="card-body text-right">
+                <p class="card-text">{{summary.TotalDeaths}}</p>
+              </div>
+              
+            </div>       
+          </div>
+        </div>
+    </div>
+    <br>
+    <br>
+          <div class="container">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-header bg-success text-white">
+                      <h5 class="card-title">New Recovered</h5>
+                    </div>
+                    <div class="card-body text-right">
+                      <p class="card-text">{{summary.NewConfirmed}}</p>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-header bg-info text-white">
+                      <h5 class="card-title">Total Recovered</h5>
+                    </div>
+                    <div class="card-body text-right">
+                      <p class="card-text">{{summary.TotalRecovered}}</p>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+          </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="card-title">See what happens in your country</h5>
+        </div>
+          <div class="card-body text-right">
+            <form method="POST" action="">
+              {% csrf_token %}
+                <label for='option'>Find your country  </label>
+                <select name="country" id="country">
+                    {%for country in countries%}
+                    <option value={{country.Country}}>{{country.Country}}</option>
+                    {%endfor%}
+            </select>
+            <input class="btn btn-primary"type="submit" value="Submit">
+            </form>
+          </div>
+        
+      </div>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Country</th>
+                <th scope="col">New Confirmed</th>
+                <th scope="col">Total Confirmed</th>
+                <th scope="col">New Deaths</th>
+                <th scope="col">Total Deaths</th>
+                <th scope="col">New Recovered</th>
+                <th scope="col">Total Recovered</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% if not selected %}
+            {%for country in countries%}
+            <tr>
+                <td>{{country.Country}}</td>
+                <td>{{country.NewConfirmed}}</td>
+                <td>{{country.TotalConfirmed}}</td>
+                <td>{{country.NewDeaths}}</td>
+                <td>{{country.TotalDeaths}}</td>
+                <td>{{country.NewRecovered}}</td>
+                <td>{{country.TotalRecovered}}</td>
+            </tr>
+            {%endfor%}
+          {% else %}
+          <tr>
+            <td>{{selected.Country}}</td>
+            <td>{{selected.NewConfirmed}}</td>
+            <td>{{selected.TotalConfirmed}}</td>
+            <td>{{selected.NewDeaths}}</td>
+            <td>{{selected.TotalDeaths}}</td>
+            <td>{{selected.NewRecovered}}</td>
+            <td>{{selected.TotalRecovered}}</td>
+        </tr>
+        {% endif %}
+            
+        </tbody>
+    </table></div>
+    <br><br><br>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
